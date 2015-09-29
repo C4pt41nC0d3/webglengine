@@ -14,8 +14,7 @@ var gi, ec, gee, debug;
 function EngineConsole() {
     this.reg = {};
     this.exec = function(command) {
-        if (typeof command === "string"
-            this.reg[command] === undefined) {
+        if (typeof command === "string" && this.reg[command] === undefined) {
             this.reg[command]();
             return true;
         } else return false;

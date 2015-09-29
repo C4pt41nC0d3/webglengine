@@ -16,7 +16,7 @@ function EngineConsole(){
 	this.reg = {};
 	this.exec = function(command){
 		if(typeof command === "string"
-			this.reg[command] === undefined){
+			&& this.reg[command] === undefined){
 			this.reg[command]();
 		  return true;
 		}
