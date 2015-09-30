@@ -8,7 +8,6 @@
 */
 var gi, ec, gee, debug;
 
-
 /*
 	GameEngineConsole
 */
@@ -16,7 +15,7 @@ function EngineConsole(){
 	this.reg = {};
 	this.exec = function(command){
 		if(typeof command === "string"
-			&& this.reg[command] === undefined){
+			&& this.reg[command] != undefined){
 			this.reg[command]();
 		  return true;
 		}
@@ -24,20 +23,20 @@ function EngineConsole(){
 	};
 	this.addcmd = function(command, process){
 		if(typeof command === "string"
-			&& this.reg[command] != undefined
+			&& this.reg[command] === undefined
 			&& typeof process === "function"){
 			this.reg[command] = process;
 		   return true;
 		}
 	    else return false;
 	};
-	this delcmd = function(command){
+	this.delcmd = function(command){
 		if(typeof command === "string"
 			&& this.reg[command] != undefined){
-
+			return delete this.reg[command];
 		}
 	   else return false;
-	}
+	};
 }
 
 ec = new EngineConsole();
@@ -52,7 +51,6 @@ if(ec.addcmd(
 	console.log("Environment variables loaded.");
 
 	//all code goes here
-	
 }
 else 
 	console.log("Environment variables not loaded.");

@@ -14,22 +14,25 @@ var gi, ec, gee, debug;
 function EngineConsole() {
     this.reg = {};
     this.exec = function(command) {
-        if (typeof command === "string" && this.reg[command] === undefined) {
+        if (typeof command === "string" && this.reg[command] != undefined) {
             this.reg[command]();
             return true;
         } else return false;
     };
+
     this.addcmd = function(command, process) {
-        if (typeof command === "string" && this.reg[command] != undefined && typeof process === "function") {
+        if (typeof command === "string" && this.reg[command] === undefined && typeof process === "function") {
+        	console.log("registering");
             this.reg[command] = process;
             return true;
         } else return false;
     };
-    this delcmd = function(command) {
-        if (typeof command === "string" && this.reg[command] != undefined) {
 
+    this.delcmd = function(command) {
+        if (typeof command === "string" && this.reg[command] != undefined) {
+            return delete this.reg[command];
         } else return false;
-    }
+    };
 }
 
 ec = new EngineConsole();
@@ -76,7 +79,7 @@ if (ec.addcmd(
         name: "Error name",
         count: 0, // count how many times the error ocurs
         description: "Error description",
-        msg: "Error message when the exception is catched.";
+        msg: "Error message when the exception is catched.",
         print: function() {
             console.log("Error name\nDescription:");
             console.log(this.description);
@@ -92,19 +95,6 @@ if (ec.addcmd(
         }
     };
     /*
-		Errors
-		>TypeError.
-	*/
-    function TypeError() {};
-    //Inheritance from the interface that defines the skeleton.
-    TypeError = gi.Extends(ErrorInterface, TypeError);
-
-    //Redefine the TypeError
-    TypeError.prototype.name = "typerror";
-    TypeError.prototype.msg = "TypeError: there is one or more vars that interrupt the program execution flow.";
-    TypeError.prototype.description = "The type errors occurs when execution flow is breaked.";
-
-    /*
 	GameEngineErrors: This module register all the errors in one single structure.
 */
 
@@ -114,8 +104,11 @@ if (ec.addcmd(
         this.push = function(errorobj) {
             if (typeof errorobj === "object" && errorobj.type === "Error" && this.internalstack[errorobj.name] === undefined) {
                 this.internalstack[errorobj.name] = errorobj;
-            } else
-                console.log("The error cannot be added to GameEngineErrors structure.")
+                return true;
+            } else{
+                console.log("The error cannot be added to GameEngineErrors structure.");
+                return false;
+            }
         };
 
         this.popByName = function(name) {
@@ -137,9 +130,51 @@ if (ec.addcmd(
             else
                 console.log("There is not errors in this structure");
         };
+        
+        this.get = function(name){
+		if(typeof name === "string"
+			&& this.internalstack[name] != undefined){
+			return this.internalstack[name];
+		}
+		else 
+			console.log("The error doesn't exist.") 
+	};
     }
-
+    
     //init the environment vars
     ec.exec("init.envvars");
+      
+    /*
+		Errors
+		>TypeError.
+	*/
+    function TypeError() {};
+    //Inheritance from the interface that defines the skeleton.
+    TypeError = gi.Extends(ErrorInterface, TypeError);
+
+    //Redefine the TypeError
+    TypeError.prototype.name = "typeerror";
+    TypeError.prototype.msg = "TypeError: there is one or more vars that interrupt the program execution flow.";
+    TypeError.prototype.description = "The type errors occurs when execution flow is breaked.";
+ 
+
+    //registering the errors
+    gee.push(
+        new TypeError()
+    );
+
+    //test the error
+    try {
+        var number;
+
+        number = "hello";
+
+        if (typeof number != "number")
+            throw gee.get("typeerror");
+        else
+            console.log("The variable is a number");
+    } catch (error) {
+        error.message();
+    }
 } else
     console.log("Environment variables not loaded, execution ended...");

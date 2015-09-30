@@ -8,11 +8,11 @@ ErrorInterface.prototype = {
 	name: "Error name",
 	count: 0, // count how many times the error ocurs
 	description: "Error description",
-	msg: "Error message when the exception is catched.";
+	msg: "Error message when the exception is catched.",
 	print: function(){
 		console.log("Error name\nDescription:");
 		console.log(this.description);
-		console.log("\nOcurrence: "+this.count);
+		console.log("Ocurrence: "+this.count);
 	},
 	//increase the error counter
 	inc: function(){
