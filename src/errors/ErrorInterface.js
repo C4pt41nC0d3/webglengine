@@ -21,5 +21,9 @@ ErrorInterface.prototype = {
 	message: function(){
 		console.log(this.msg);
 		this.inc();
+
+		//print the error information if the debug mode is enabled [debug=true]
+		if(debug)
+			this.print();
 	}
 };

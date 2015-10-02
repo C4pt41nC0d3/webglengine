@@ -4,7 +4,7 @@
 		gi: GeneralInterface instance.
 		ec: EngineConsole instance.
 		gee: GameEngineErrors instance.
-		debug: flag for test the engine
+		debug: flag for test the engine, verbose mode.
 */
 var gi, ec, gee, debug;
 
@@ -45,6 +45,7 @@ if(ec.addcmd(
 	function(){
 		gi = new GeneralInterface();
 		gee = new GameEngineErrors();
+		//Enable the engine debug
 		debug = true;
 	}
 )){

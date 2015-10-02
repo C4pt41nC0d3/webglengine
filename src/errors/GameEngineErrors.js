@@ -1,7 +1,9 @@
 function GameEngineErrors() {
     this.internalstack = {};
     this.push = function(errorobj) {
-        if (typeof errorobj === "object" && errorobj.type === "Error" && this.internalstack[errorobj.name] === undefined) {
+        if (typeof errorobj === "object" 
+            && errorobj.type === "Error" 
+            && this.internalstack[errorobj.name] === undefined) {
             this.internalstack[errorobj.name] = errorobj;
         	return true;
         } else{
@@ -32,32 +34,38 @@ function GameEngineErrors() {
         if (typeof name === "string" && this.internalstack[name] != undefined) {
             return this.internalstack[name];
         } else
-            console.log("The error doesn't exist.")
+            console.log("The error doesn't exist.");
     };
 }
 
 ec.addcmd(
     "register.errors",
-    function(
+    function(){
         //push the errors
     	//this expression returns true if the errors are added
         //return gee.push(new error0()) & gee.push(new error1())
        	return gee.push(new TypeError())
-    )
+            & gee.push(new VertexError());
+    }
 );
 
-ec.exec("registe.errors");
+if(ec.exec("register.errors"))
+    console.log("Registering the EngineErrors datatype");
+else
+    console.log("The errors wasn't registered.");
 
-//test the error
+
+/*
+Example of one type error
 try {
     var number;
 
     number = "hello";
 
     if (typeof number != "number")
-        throw gee.get("TypeError");
+        throw gee.get("typeerror");
     else
         console.log("The variable is a number");
 } catch (error) {
     error.message();
-}
+}*/
