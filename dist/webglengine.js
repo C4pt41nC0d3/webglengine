@@ -79,7 +79,7 @@ if (ec.addcmd(
     /*
         ErrorInterface: Define the implementation for all the Errors.
     */
-    function ErrorInterface() {}
+    function ErrorInterface() {};
 
     ErrorInterface.prototype = {
         type: "Error",
@@ -189,7 +189,7 @@ if (ec.addcmd(
     else
         console.log("The errors wasn't registered.");
 
-    function Vertex() {}
+    function Vertex() {};
     Vertex.prototype = {
         vector: {},
         type: "vertex",
@@ -203,9 +203,9 @@ if (ec.addcmd(
                 this.vector = gi.mapArrayToObject(array, this.vector)
         },
         print: function() {}
-    }
+    };
 
-    function Vertex2D() {}
+    function Vertex2D() {};
     gi.Extends(Vertex, Vertex2D);
 
     /*
@@ -316,5 +316,6 @@ if (ec.addcmd(
     //testing the vertex
     var v1 = new Vertex2D(), v2 = new Vertex2D();
     v1.init([0,0]); v2.init([1,1]);
-    v1.print(); v2.print();
+    console.log(v1.print()); 
+    console.log(v2.print());
 } else console.log("Environment variables not loaded, execution ended...");

@@ -12,6 +12,7 @@ parent.prototype.changeValue = function(){};
 
 function child0(){}
 Extends(parent, child0);
+child0.prototype.value = 1;
 child0.prototype.changeValue = function(w){
 	this.value = w;
 }
