@@ -111,3 +111,33 @@ v1.init([0, 0]);
 v2.init([1, 1]);
 v1.print();
 v2.print();
+
+/* new version */
+function Vertex(){};
+
+Vertex.prototype = {
+    name: "",
+    toString: function(){
+        return this.name;
+    }
+    init: function(wx, wy){},
+    distance: function(vertex){},
+    toArray: function(){},
+    mapArray: function(vector){}
+}
+
+function Vertex2D(wx, wy){
+    if(this.wx === "number" && twy === "number"){
+        this.x = wx;
+        this.y = wy;
+    }
+} 
+
+gi.Extends(Vertex, Vertex2D);
+Vertex2D.prototype.name = "vertex2d";
+Vertex2D.prototype.init = function(wx, wy){
+    if(typeof wx === "number" && typeof wy === "number"){
+        this.x = wx;  
+        this.y = wy;
+    }
+}
